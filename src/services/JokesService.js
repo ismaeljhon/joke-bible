@@ -57,12 +57,12 @@ export default class JokesService extends ChuckNorrisApiService {
 
   /** Save Item to local storage */
   async saveItem (item) {
-    const currentJokes = this.localStorageService.localStorageService.get()
+    const currentJokes = this.localStorageService.get()
 
     const { result = [], total = 0 } = currentJokes
 
     // save the item to local storage
-    this.localStorageService.localStorageService.save({
+    this.localStorageService.save({
       total,
       result: result.map(joke => {
         if (item.id === joke.id) {
