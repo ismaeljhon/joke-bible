@@ -11,13 +11,17 @@ export default class JokesService extends ChuckNorrisApiService {
   }
 
   async index (params = {}) {
-    const { limit = 20, offset = 0, categoryName = '' } = params
+    const { limit = 20, offset = 0, categoryName = '', refresh = false } = params
 
-    const data = await super.index({
-      params: {
-        query: 'all'
-      },
-    })
+    let data = this.localStorageService.get()
+
+    /** If jokes were not available in local storage fetch from api */
+    if (refresh || !data || data?.result?.length <= 0)
+      data = await super.index({
+        params: {
+          query: 'all'
+        },
+      })
 
     let { result = [], total } = data
 
