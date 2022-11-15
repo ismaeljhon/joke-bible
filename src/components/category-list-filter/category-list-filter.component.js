@@ -22,9 +22,9 @@ const CategoryListFilter = () => {
     <nav className='category-filter-list'>
       <Loading isLoading={isLoadingCategories} loadingText='Loading Categories...' />
       <ul>
-        {categories.map(categoryName => {
+        {categories.map((categoryName, index) => {
           return (
-            <li>
+            <li key={index}>
               <a>{categoryName} Jokes</a>
             </li>
           )

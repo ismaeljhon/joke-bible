@@ -13,7 +13,6 @@ const CategoryList = () => {
     (async () => {
       setIsLoadingJokes(true)
       const result = await new JokesService().index()
-        .then(data => data.result)
 
       setJokes(result)
       setIsLoadingJokes(false)
@@ -34,7 +33,7 @@ const CategoryList = () => {
       <Loading isLoading={isLoadingJokes} loadingText="Loading Jokes..." />
 
       {jokes.map(joke =>
-        <Joke item={joke} />
+        <Joke item={joke} key={joke.id} />
       )}
 
       <aside>
