@@ -9,17 +9,18 @@ const CategoryList = () => {
   const [isLoadingJokes, setIsLoadingJokes] = useState(false)
   const [jokes, setJokes] = useState([])
   const [jokesLimitPerPage, setJokesLimitPerPage] = useState(20)
+  const [filterCategoryNameSelected, setFilterCategoryNameSelected] = useState('')
 
   useEffect(() => {
     (async () => {
       setIsLoadingJokes(true)
-      const result = await new JokesService().index({ limit: jokesLimitPerPage })
+      const result = await new JokesService().index({ limit: jokesLimitPerPage, categoryName: filterCategoryNameSelected })
 
       setJokes(result)
       setIsLoadingJokes(false)
     })()
 
-  }, [jokesLimitPerPage])
+  }, [filterCategoryNameSelected, jokesLimitPerPage])
 
   const loadMore = () => {
     setJokesLimitPerPage(jokesLimitPerPage + 20)
