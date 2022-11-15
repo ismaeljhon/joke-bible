@@ -1,6 +1,4 @@
 import ChuckNorrisApiService from "./ChuckNorrisApiService";
-import LocalStorageService from './LocalStorageService'
-
 export default class JokesService extends ChuckNorrisApiService {
   constructor() {
     super({
@@ -9,15 +7,19 @@ export default class JokesService extends ChuckNorrisApiService {
     })
   }
 
-  async index (refresh = false) {
+  async index (params = {}) {
+    const { refresh = false, limit = 20, offset = 0 } = params
+
     return super.index({
       params: {
         query: 'all'
       },
       refresh
-    }).then(({ result = [] }) => {
-      return result
     })
+      .then(({ result = [] }) => {
+        /** This will serve as the pagination for a long collection */
+        return result.slice(offset, limit)
+      })
   }
 
   async search (searchString = '') {
