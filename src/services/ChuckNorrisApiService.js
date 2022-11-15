@@ -14,7 +14,8 @@ export default class ChuckNorrisApiService {
     this.localStorageService = new LocalStorageService(this.entity)
   }
 
-  async index (requestParams = {}, refresh = false) {
+  async index (requestParams = {}, options = {}) {
+    const { refresh = false } = options
     let res = this.localStorageService.get()
 
     if (refresh || !res || typeof res != 'object' || res?.length <= 0) {
