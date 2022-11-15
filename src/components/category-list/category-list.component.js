@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CategoriesService from "../../services/CategoriesService";
 import JokesService from '../../services/JokesService'
+import LocalStorageService from "../../services/LocalStorageService";
 
 import CategoryListFilter from "../category-list-filter/category-list-filter.component";
 import Joke from "../joke/joke.component";
@@ -13,6 +14,7 @@ const CategoryList = () => {
   const [filterCategoryNameSelected, setFilterCategoryNameSelected] = useState('')
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
   const [categories, setCategories] = useState([])
+  const [categoriesComputed, setCategoriesComputed] = useState([])
 
   useEffect(() => {
     (async () => {
@@ -31,13 +33,27 @@ const CategoryList = () => {
 
   }, [filterCategoryNameSelected, jokesLimitPerPage])
 
+  /** Compute Expected Total Jokes per categories */
+  useEffect(() => {
+    (async () => {
+      const jokes = new LocalStorageService('jokes').get()
+
+      setCategoriesComputed(categories.map(
+        categoryName => ({
+          name: categoryName,
+          count: jokes.result.filter(jokes => jokes.categories.includes(categoryName.toLowerCase())).length
+
+        })))
+    })()
+  }, [categories])
+
   const loadMore = () => {
     setJokesLimitPerPage(jokesLimitPerPage + 20)
   }
 
   return (
     <section className='joke-list'>
-      <CategoryListFilter categories={categories} isLoading={isLoadingCategories} />
+      <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} />
 
       <aside className='filterSelected'>
         <ul>

@@ -5,10 +5,10 @@ const CategoryListFilter = ({ isLoading, categories }) => {
     <nav className='category-filter-list'>
       <Loading isLoading={isLoading} loadingText='Loading Categories...' />
       <ul>
-        {categories.map((categoryName, index) => {
+        {categories.map(({ name }, index) => {
           return (
             <li key={index}>
-              <a>{categoryName} Jokes</a>
+              <a>{name} Jokes</a>
             </li>
           )
         })}
