@@ -1,5 +1,26 @@
+import { useEffect, useState } from "react";
+import JokesService from '../../services/JokesService'
+
 import CategoryListFilter from "../category-list-filter/category-list-filter.component";
+import Joke from "../joke/joke.component";
+import Loading from "../loading/loading.component";
+
 const CategoryList = () => {
+  const [isLoadingJokes, setIsLoadingJokes] = useState(false)
+  const [jokes, setJokes] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      setIsLoadingJokes(true)
+      const result = await new JokesService().index()
+        .then(data => data.result)
+
+      setJokes(result)
+      setIsLoadingJokes(false)
+    })()
+
+  }, [])
+
   return (
     <section className='joke-list'>
       <CategoryListFilter />
@@ -10,29 +31,11 @@ const CategoryList = () => {
         </ul>
       </aside>
 
-      <article>
-        <h3>Lawyer Joke</h3>
-        <p>Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order.</p>
-        <a href="">See more</a>
-      </article>
+      <Loading isLoading={isLoadingJokes} loadingText="Loading Jokes..." />
 
-      <article>
-        <h3>Doctor Joke</h3>
-        <p>The Chuck Norris facts game is played out... And we should all stop contributing to this stupid shit! Unless your a dickless gamer that dwells on this Chuck Norris nonsense</p>
-        <a href="">See more</a>
-      </article>
-
-      <article>
-        <h3>Business Joke</h3>
-        <p>Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order.</p>
-        <a href="">See more</a>
-      </article>
-
-      <article>
-        <h3>Police Joke</h3>
-        <p>Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order.</p>
-        <a href="">See more</a>
-      </article>
+      {jokes.map(joke =>
+        <Joke item={joke} />
+      )}
 
       <aside>
         <a>View All</a>

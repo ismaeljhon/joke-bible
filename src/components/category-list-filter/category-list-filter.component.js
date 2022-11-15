@@ -1,28 +1,34 @@
+import { useEffect, useState } from "react";
+import CategoriesService from "../../services/CategoriesService";
+import Loading from "../loading/loading.component";
+
 const CategoryListFilter = () => {
+
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false)
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      setIsLoadingCategories(true)
+      const result = await new CategoriesService().index()
+
+      setCategories(result)
+      setIsLoadingCategories(false)
+    })()
+
+  }, [])
+
   return (
     <nav className='category-filter-list'>
+      <Loading isLoading={isLoadingCategories} loadingText='Loading Categories...' />
       <ul>
-        <li>
-          <a>Adult Jokes</a>
-        </li>
-        <li>
-          <a>Dad Jokes</a>
-        </li>
-        <li>
-          <a>Christmas Jokes</a>
-        </li>
-        <li>
-          <a>Job Jokes</a>
-        </li>
-        <li>
-          <a>Birthday Jokes</a>
-        </li>
-        <li>
-          <a>Social Jokes</a>
-        </li>
-        <li>
-          <a>Puns Jokes</a>
-        </li>
+        {categories.map(categoryName => {
+          return (
+            <li>
+              <a>{categoryName} Jokes</a>
+            </li>
+          )
+        })}
         <li>
           <a>View All</a>
         </li>
