@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CategoriesService from "../../services/CategoriesService";
 import JokesService from '../../services/JokesService'
 
 import CategoryListFilter from "../category-list-filter/category-list-filter.component";
@@ -10,14 +11,22 @@ const CategoryList = () => {
   const [jokes, setJokes] = useState([])
   const [jokesLimitPerPage, setJokesLimitPerPage] = useState(20)
   const [filterCategoryNameSelected, setFilterCategoryNameSelected] = useState('')
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false)
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     (async () => {
       setIsLoadingJokes(true)
-      const result = await new JokesService().index({ limit: jokesLimitPerPage, categoryName: filterCategoryNameSelected })
+      const jokeResult = await new JokesService().index({ limit: jokesLimitPerPage, categoryName: filterCategoryNameSelected })
 
-      setJokes(result)
+      setJokes(jokeResult)
       setIsLoadingJokes(false)
+
+      setIsLoadingCategories(true)
+      const result = await new CategoriesService().index()
+
+      setCategories(result)
+      setIsLoadingCategories(false)
     })()
 
   }, [filterCategoryNameSelected, jokesLimitPerPage])
@@ -28,7 +37,7 @@ const CategoryList = () => {
 
   return (
     <section className='joke-list'>
-      <CategoryListFilter />
+      <CategoryListFilter categories={categories} isLoading={isLoadingCategories} />
 
       <aside className='filterSelected'>
         <ul>
@@ -42,10 +51,8 @@ const CategoryList = () => {
         <Joke item={joke} key={joke.id} />
       )}
 
-      <button onClick={loadMore}>View More</button>
-
       <aside>
-        <a>View All</a>
+        {jokes.length > 0 ? <button onClick={loadMore}>View More</button> : ''}
       </aside>
     </section>
   )

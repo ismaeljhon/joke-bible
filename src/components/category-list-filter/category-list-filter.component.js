@@ -1,26 +1,9 @@
-import { useEffect, useState } from "react";
-import CategoriesService from "../../services/CategoriesService";
 import Loading from "../loading/loading.component";
 
-const CategoryListFilter = () => {
-
-  const [isLoadingCategories, setIsLoadingCategories] = useState(false)
-  const [categories, setCategories] = useState([])
-
-  useEffect(() => {
-    (async () => {
-      setIsLoadingCategories(true)
-      const result = await new CategoriesService().index()
-
-      setCategories(result)
-      setIsLoadingCategories(false)
-    })()
-
-  }, [])
-
+const CategoryListFilter = ({ isLoading, categories }) => {
   return (
     <nav className='category-filter-list'>
-      <Loading isLoading={isLoadingCategories} loadingText='Loading Categories...' />
+      <Loading isLoading={isLoading} loadingText='Loading Categories...' />
       <ul>
         {categories.map((categoryName, index) => {
           return (
@@ -29,9 +12,9 @@ const CategoryListFilter = () => {
             </li>
           )
         })}
-        <li>
-          <a>View All</a>
-        </li>
+
+        {categories.length ? <li><a>View All</a></li> : ''}
+
       </ul>
     </nav>
   )
