@@ -15,6 +15,7 @@ const CategoryList = () => {
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
   const [categories, setCategories] = useState([])
   const [categoriesComputed, setCategoriesComputed] = useState([])
+  const [isAllJokesLoaded, setIsAllJokesLoaded] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -47,6 +48,12 @@ const CategoryList = () => {
     })()
   }, [categories])
 
+  useEffect(() => {
+    const categoriesComputedSelected = categoriesComputed.find(category => category.name === filterCategoryNameSelected.toLowerCase())
+    setIsAllJokesLoaded(jokesLimitPerPage >= categoriesComputedSelected?.count)
+
+  }, [categoriesComputed, jokesLimitPerPage, filterCategoryNameSelected])
+
   const loadMore = () => {
     setJokesLimitPerPage(jokesLimitPerPage + 20)
   }
@@ -68,7 +75,7 @@ const CategoryList = () => {
       )}
 
       <aside>
-        {jokes.length > 0 ? <button onClick={loadMore}>View More</button> : ''}
+        {!isAllJokesLoaded ? <button onClick={loadMore}>View More</button> : ''}
       </aside>
     </section>
   )
