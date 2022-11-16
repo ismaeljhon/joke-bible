@@ -1,13 +1,33 @@
 import './site-header.scss'
+import { Link } from 'react-router-dom'
 
 const SiteHeader = () => {
+  const navigation = [
+    {
+      label: 'So Funktioniert\'s',
+      link: '#'
+    },
+    {
+      label: 'Sonderangebote',
+      link: '#'
+    },
+    {
+      label: 'Mein Bereich',
+      link: '#'
+    }
+  ]
+
   return (
     <header className="AppHeader">
-      <nav>
-        <a>So Funktioniert's</a>
-        <a>Sonderangebote</a>
-        <a>Mein Bereich</a>
-      </nav>
+      <div className='container'>
+        <nav>
+          {
+            navigation.map((nav, index) => (
+              <Link to={nav.link} key={index}>{nav.label}</Link>
+            ))
+          }
+        </nav>
+      </div>
     </header>
   );
 }

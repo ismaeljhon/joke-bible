@@ -1,6 +1,23 @@
 @import "../../styles/_variables.scss";
 
 .AppHeader {
-  text-transform: uppercase;
   background-color: $thunder;
+
+  .container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  nav {
+    display: flex;
+
+    a {
+      color: $white-2;
+      font-size: 15px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 20px;
+    }
+  }
 }
