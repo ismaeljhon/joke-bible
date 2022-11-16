@@ -1,0 +1,7 @@
+@import "./_variables.scss";
+@import "./typography";
+
+body {
+  @include base-style;
+  margin: 0;
+}

@@ -1,0 +1,17 @@
+@import "./_mixins.scss";
+@import "./_variables.scss";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+p {
+  @include base-style;
+}
