@@ -1,0 +1,38 @@
+@import "../../styles/_variables.scss";
+@import "../../styles/mixins.scss";
+
+a {
+  &.btn {
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 1px;
+    padding: 10px 20px;
+    display: inline-block;
+    font-weight: 600;
+    color: $white;
+
+    &.primary {
+      color: $sorrell-brown;
+    }
+
+    &.weird-green {
+      background-color: $weird-green;
+    }
+    &.kiwi-green {
+      background-color: $kiwi-green;
+    }
+    &.pastel-orange {
+      background-color: $pastel-orange;
+    }
+    &.pale-orange {
+      background-color: $pale-orange;
+    }
+    &.sunset-orange {
+      background-color: $sunset-orange;
+    }
+    &.turquoise-blue {
+      background-color: $turquoise-blue;
+    }
+  }
+}
