@@ -5,3 +5,8 @@ body {
   @include base-style;
   margin: 0;
 }
+
+.container {
+  max-width: $screen-xl;
+  margin: auto;
+}
