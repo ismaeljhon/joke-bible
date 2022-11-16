@@ -11,12 +11,12 @@ const CategoryListFilter = ({ isLoading, categories, handleSelectCategory }) => 
         {categories.map(({ name, type }, index) => {
           return (
             <li key={index}>
-              <Button type={type} label={`${name} Jokes`} onClick={() => handleSelectCategory(name)} />
+              <Button type={type} label={`${name} Jokes`} className='blocked' onClick={() => handleSelectCategory(name)} />
             </li>
           )
         })}
 
-        {categories.length ? <li><Button type='primary' label='View All' onClick={() => handleSelectCategory('')} /></li> : ''}
+        {categories.length ? <li><Button type='primary' label='View All' className='blocked' onClick={() => handleSelectCategory('')} /></li> : ''}
 
       </ul>
     </nav>

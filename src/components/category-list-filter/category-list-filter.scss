@@ -5,9 +5,13 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    column-count: 5;
+    flex-flow: row wrap;
     li {
-      display: inline-block;
-      margin-right: 5%;
+      flex-basis: 19%;
     }
   }
 }

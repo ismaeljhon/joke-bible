@@ -63,11 +63,9 @@ const CategoryList = () => {
     <section className='joke-list'>
       <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} handleSelectCategory={setFilterCategoryNameSelected} />
 
-      <aside className='filterSelected'>
-        <ul>
-          <li>Social Jokes</li>
-        </ul>
-      </aside>
+      {filterCategoryNameSelected ? <aside className='filterSelected'>
+        <span>{filterCategoryNameSelected} Joke</span>
+      </aside> : ''}
 
       <Loading isLoading={isLoadingJokes} loadingText="Loading Jokes..." />
 

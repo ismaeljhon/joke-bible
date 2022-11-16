@@ -14,8 +14,14 @@
   background: transparent;
   cursor: pointer;
 
+  &.blocked {
+    display: block;
+    width: 100%;
+  }
+
   &.primary {
     color: $sorrell-brown;
+    border: 1px solid $sorrell-brown;
   }
 
   &.weird-green {
