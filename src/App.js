@@ -1,16 +1,16 @@
-import CategoryList from "./components/category-list/category-list.component";
-import MainCta from "./components/main-cta/main-cta.component";
-import SiteHeader from "./components/site-header/site-header.component";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/Home'
 
 const App = () => {
   return (
     <div className="App">
-      <SiteHeader />
-
-      <main>
-        <MainCta />
-        <CategoryList />
-      </main>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/jokes" element={<Home />} />
+          <Route path="/jokes/:id" element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
