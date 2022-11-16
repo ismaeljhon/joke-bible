@@ -1,19 +1,26 @@
+import Button from "../button/button.component";
 import Loading from "../loading/loading.component";
+import './category-list-filter.scss'
 
-const CategoryListFilter = ({ isLoading, categories }) => {
+const CategoryListFilter = ({ isLoading, categories, handleSelectCategory }) => {
+
+  /** Randomize the color of the buttons for now */
+  const buttonTypes = ['weird-green', 'weird-green', 'kiwi-green', 'pastel-orange', 'pale-orange', 'sunset-orange', 'turquoise-blue']
+  const categoriesComputed = categories.map(category => ({ ...category, buttonType: buttonTypes[Math.floor(Math.random() * 6) + 1] }))
+
   return (
-    <nav className='category-filter-list'>
+    <nav className='category-list-filter'>
       <Loading isLoading={isLoading} loadingText='Loading Categories...' />
       <ul>
-        {categories.map(({ name }, index) => {
+        {categoriesComputed.map(({ name, buttonType }, index) => {
           return (
             <li key={index}>
-              <a>{name} Jokes</a>
+              <Button type={buttonType} label={`${name} Jokes`} onClick={() => handleSelectCategory(name)} />
             </li>
           )
         })}
 
-        {categories.length ? <li><a>View All</a></li> : ''}
+        {categoriesComputed.length ? <li><Button type='primary' label='View All' /></li> : ''}
 
       </ul>
     </nav>

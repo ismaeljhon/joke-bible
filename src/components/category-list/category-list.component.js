@@ -60,7 +60,7 @@ const CategoryList = () => {
 
   return (
     <section className='joke-list'>
-      <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} />
+      <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} handleSelectCategory={setFilterCategoryNameSelected} />
 
       <aside className='filterSelected'>
         <ul>
