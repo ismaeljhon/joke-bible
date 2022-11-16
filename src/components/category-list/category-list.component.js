@@ -40,9 +40,10 @@ const CategoryList = () => {
       const jokes = new LocalStorageService('jokes').get()
 
       setCategoriesComputed(categories.map(
-        categoryName => ({
-          name: categoryName,
-          count: jokes.result.filter(jokes => jokes.categories.includes(categoryName.toLowerCase())).length
+        ({ name, type }) => ({
+          name,
+          type,
+          count: jokes.result.filter(jokes => jokes.categories.includes(name.toLowerCase())).length
 
         })))
     })()

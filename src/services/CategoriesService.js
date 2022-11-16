@@ -16,7 +16,21 @@ export default class CategoriesService extends ChuckNorrisApiService {
 
     if (refresh || !categories) {
       categories = await super.index()
-      categories.push('uncategorized')
+
+      /** Randomize the color the type of the categories for now */
+      const buttonTypes = ['weird-green', 'weird-green', 'kiwi-green', 'pastel-orange', 'pale-orange', 'sunset-orange', 'turquoise-blue']
+
+      categories = categories.map(
+        name => ({
+          name,
+          type: buttonTypes[Math.floor(Math.random() * 6) + 1]
+        })
+      )
+
+      categories.push({
+        name: 'uncategorized',
+        type: 'primary'
+      })
       this.localStorageService.save(categories)
     }
 
