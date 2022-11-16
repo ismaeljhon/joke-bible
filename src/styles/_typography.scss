@@ -3,15 +3,20 @@
 
 @font-face {
   font-family: "Montserrat";
-  src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/Montserrat-Regular.ttf") format("truetype");
   font-weight: normal;
 }
 @font-face {
   font-family: "Montserrat";
-  src: url("../fonts/Montserrat-SemiBold.ttf") format("truetype");
+  src: url("../assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
   font-weight: 600;
 }
 
 p {
   @include base-style;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 1.5;
 }

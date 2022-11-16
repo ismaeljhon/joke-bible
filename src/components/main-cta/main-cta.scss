@@ -1,0 +1,25 @@
+@import "../../styles/typography";
+
+.main-banner {
+  text-align: center;
+
+  background: url("../../assets/images/main-cta-back.jpg") no-repeat;
+  background-size: 100%;
+  padding: 85px 0;
+
+  h1 {
+    color: $sorrell-brown;
+    line-height: 72px;
+    letter-spacing: 0;
+    font-weight: normal;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  h5 {
+    font-size: 23px;
+    color: $white-2;
+    font-weight: normal;
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
+}

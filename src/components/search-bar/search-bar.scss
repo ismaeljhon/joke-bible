@@ -1,0 +1,26 @@
+@import "../../styles/typography";
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.search-bar {
+  input[type="text"],
+  input[type="search"] {
+    @include base-style;
+    padding: 15px;
+    width: 480px;
+    border-radius: 5px;
+    background: transparent;
+    outline: none;
+    color: $white;
+    border: 1px solid;
+    font-size: 15px;
+    background: url("../../assets/images/icon-search.png") no-repeat center
+      right 15px;
+    padding-right: 50px;
+
+    &::placeholder {
+      color: $nobel;
+      opacity: 1; /* Firefox */
+    }
+  }
+}
