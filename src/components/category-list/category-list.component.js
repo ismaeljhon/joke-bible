@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CategoriesService from "../../services/CategoriesService";
 import JokesService from '../../services/JokesService'
 import LocalStorageService from "../../services/LocalStorageService";
+import './category-list.scss'
 
 import CategoryListFilter from "../category-list-filter/category-list-filter.component";
 import Joke from "../joke/joke.component";
@@ -11,7 +12,7 @@ const CategoryList = () => {
   const [isLoadingJokes, setIsLoadingJokes] = useState(false)
   const [jokes, setJokes] = useState([])
   const [jokesLimitPerPage, setJokesLimitPerPage] = useState(20)
-  const [filterCategoryNameSelected, setFilterCategoryNameSelected] = useState('')
+  const [filterCategorySelected, setFilterCategorySelected] = useState('')
   const [isLoadingCategories, setIsLoadingCategories] = useState(false)
   const [categories, setCategories] = useState([])
   const [categoriesComputed, setCategoriesComputed] = useState([])
@@ -20,7 +21,9 @@ const CategoryList = () => {
   useEffect(() => {
     (async () => {
       setIsLoadingJokes(true)
-      const jokeResult = await new JokesService().index({ limit: jokesLimitPerPage, categoryName: filterCategoryNameSelected })
+
+      const { name: categoryName } = filterCategorySelected
+      const jokeResult = await new JokesService().index({ limit: jokesLimitPerPage, categoryName })
 
       setJokes(jokeResult)
       setIsLoadingJokes(false)
@@ -32,7 +35,7 @@ const CategoryList = () => {
       setIsLoadingCategories(false)
     })()
 
-  }, [filterCategoryNameSelected, jokesLimitPerPage])
+  }, [filterCategorySelected, jokesLimitPerPage])
 
   /** Compute Expected Total Jokes per categories */
   useEffect(() => {
@@ -50,21 +53,24 @@ const CategoryList = () => {
   }, [categories])
 
   useEffect(() => {
-    const categoriesComputedSelected = categoriesComputed.find(category => category.name === filterCategoryNameSelected.toLowerCase())
+    const { name: categoryNameSelected = '' } = filterCategorySelected
+    const categoriesComputedSelected = categoriesComputed.find(category => category.name === categoryNameSelected.toLowerCase())
     setIsAllJokesLoaded(jokesLimitPerPage >= categoriesComputedSelected?.count)
 
-  }, [categoriesComputed, jokesLimitPerPage, filterCategoryNameSelected])
+  }, [categoriesComputed, jokesLimitPerPage, filterCategorySelected])
 
   const loadMore = () => {
     setJokesLimitPerPage(jokesLimitPerPage + 20)
   }
 
+  const { name: categoryNameSelected, type: className } = filterCategorySelected
+
   return (
     <section className='joke-list'>
-      <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} handleSelectCategory={setFilterCategoryNameSelected} />
+      <CategoryListFilter categories={categoriesComputed} isLoading={isLoadingCategories} handleSelectCategory={setFilterCategorySelected} />
 
-      {filterCategoryNameSelected ? <aside className='filterSelected'>
-        <span>{filterCategoryNameSelected} Joke</span>
+      {categoryNameSelected ? <aside className='filterSelected'>
+        <span className={className}>{categoryNameSelected} Joke</span>
       </aside> : ''}
 
       <Loading isLoading={isLoadingJokes} loadingText="Loading Jokes..." />

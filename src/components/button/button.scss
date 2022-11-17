@@ -19,27 +19,5 @@
     width: 100%;
   }
 
-  &.primary {
-    color: $sorrell-brown;
-    border: 1px solid $sorrell-brown;
-  }
-
-  &.weird-green {
-    background-color: $weird-green;
-  }
-  &.kiwi-green {
-    background-color: $kiwi-green;
-  }
-  &.pastel-orange {
-    background-color: $pastel-orange;
-  }
-  &.pale-orange {
-    background-color: $pale-orange;
-  }
-  &.sunset-orange {
-    background-color: $sunset-orange;
-  }
-  &.turquoise-blue {
-    background-color: $turquoise-blue;
-  }
+  @include theme-accent;
 }

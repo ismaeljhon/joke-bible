@@ -1,0 +1,15 @@
+@import "../../styles/_variables.scss";
+@import "../../styles/_mixins.scss";
+
+.filterSelected {
+  > span {
+    display: inline-block;
+    color: #f9f9f9;
+    text-transform: uppercase;
+    border-radius: 15px;
+    font-weight: 600;
+    padding: 0px 15px;
+
+    @include theme-accent;
+  }
+}

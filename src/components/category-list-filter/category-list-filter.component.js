@@ -8,10 +8,11 @@ const CategoryListFilter = ({ isLoading, categories, handleSelectCategory }) => 
     <nav className='category-list-filter'>
       <Loading isLoading={isLoading} loadingText='Loading Categories...' />
       <ul>
-        {categories.map(({ name, type }, index) => {
+        {categories.map((category, index) => {
+          const { name, type } = category
           return (
             <li key={index}>
-              <Button type={type} label={`${name} Jokes`} className='blocked' onClick={() => handleSelectCategory(name)} />
+              <Button type={type} label={`${name} Jokes`} className='blocked' onClick={() => handleSelectCategory(category)} />
             </li>
           )
         })}
